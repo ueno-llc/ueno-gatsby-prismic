@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-// const config = require('gatsby-plugin-config');
+const config = require('gatsby-plugin-config').default;
 
 module.exports = {
   siteMetadata: {
@@ -12,14 +12,14 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
 
-    // {
-    //   resolve: 'gatsby-source-prismic',
-    //   options: {
-    //     repositoryName: config.PRISMIC_ENDPOINT,
-    //     accessToken: config.PRISMIC_ACCESS_TOKEN,
-    //     linkResolver: () => require('./src/utils/linkResolver'),
-    //   },
-    // },
+    {
+      resolve: 'gatsby-source-prismic',
+      options: {
+        repositoryName: config.PRISMIC_ENDPOINT,
+        // accessToken: config.PRISMIC_ACCESS_TOKEN,
+        linkResolver: () => require('./src/utils/linkResolver.ts'),
+      },
+    },
 
     // {
     //   resolve: 'gatsby-plugin-prismic-preview',
