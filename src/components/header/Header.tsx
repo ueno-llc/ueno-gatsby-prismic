@@ -6,7 +6,6 @@ import s from './Header.scss';
 
 interface IProps {
   children?: React.ReactNode;
-  title?: string;
 }
 
 export default class Header extends React.PureComponent<IProps> {
@@ -20,8 +19,10 @@ export default class Header extends React.PureComponent<IProps> {
               <Logo className={s.header__logoSvg} />
             </Link>
 
-            <div className={s.header__navigation}>
-              {this.props.children}
+            <div className={s.header__row}>
+              <div className={s.header__navigation}>
+                {this.props.children}
+              </div>
             </div>
           </div>
         </div>

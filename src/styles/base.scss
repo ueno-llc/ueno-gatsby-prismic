@@ -1,3 +1,5 @@
+@import '~styles/variables';
+
 /***
 *  This file is imported in components/app-layout/AppLayout.scss
 */
@@ -16,22 +18,22 @@
 }
 
 :root {
-  --scale-element: $scale;
-  --scale-font: $scale;
+  --scale-element: #{$scale};
+  --scale-font: #{$scale};
 
-  @media (max-height: $scale-height-lg) {
-    --scale-element: $scale-element-lg;
-    --scale-font: $scale-font-lg;
+  @media (max-height: #{$scale-height-lg}) {
+    --scale-element: #{$scale-element-lg};
+    --scale-font: #{$scale-font-lg};
   }
 
-  @media (max-height: $scale-height-md) {
-    --scale-element: $scale-element-md;
-    --scale-font: $scale-font-md;
+  @media (max-height: #{$scale-height-md}) {
+    --scale-element: #{$scale-element-md};
+    --scale-font: #{$scale-font-md};
   }
 
-  @media (max-height: $scale-height-sm) {
-    --scale-element: $scale-element-sm;
-    --scale-font: $scale-font-sm;
+  @media (max-height: #{$scale-height-sm}) {
+    --scale-element: #{$scale-element-sm};
+    --scale-font: #{$scale-font-sm};
   }
 }
 
@@ -66,6 +68,8 @@ body {
   position: relative;
 
   margin: 0;
+
+  overflow-x: hidden;
 
   font-family: $font-family;
   line-height: $line-height;

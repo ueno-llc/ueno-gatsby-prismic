@@ -7,11 +7,11 @@ module.exports = {
     title: 'Ueno Gatsby Starter',
   },
   plugins: [
+    'gatsby-plugin-extract-schema',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-typescript',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-
     {
       resolve: 'gatsby-source-prismic',
       options: {

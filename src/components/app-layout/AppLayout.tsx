@@ -35,7 +35,7 @@ export default class AppLayout extends React.PureComponent<IProps> {
           <html lang="en" />
         </Helmet>
 
-        {this.options.header && <Header title={title} />}
+        {this.options.header && <Header />}
 
         <div className={s.layout}>
           {this.props.children}

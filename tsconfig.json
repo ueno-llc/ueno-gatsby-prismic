@@ -35,7 +35,14 @@
     // Do not emit comments to output.
     "removeComments": false,
     // Do not erase const enum declarations in generated code.
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "plugins": [
+      {
+        "name": "@divyenduz/ts-graphql-plugin",
+        "schema": "schemas.json",
+        "tag": "gql"
+      }
+    ]
   },
   // Specifies a list of glob patterns that match files to be included in compilation.
   "include": ["./src/**/*"]

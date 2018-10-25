@@ -3,8 +3,6 @@
 .header {
   display: block;
 
-  margin: 0 0 $gutter;
-
   background-color: #fff;
 
   &__container {
@@ -14,18 +12,26 @@
   &__content {
     display: flex;
     align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
 
     padding: $gutter 0;
-
-    border-bottom: 1px solid #ccc;
   }
 
   &__logo {
     @include reset-anchor;
 
+    max-width: 63px;
+
     &Svg {
       display: block;
+      max-width: 100%;
     }
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
   }
 
   &__navigation {
