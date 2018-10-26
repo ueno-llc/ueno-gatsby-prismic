@@ -2,9 +2,7 @@ import React from 'react';
 import s from './Author.scss';
 
 interface IProps {
-  image: {
-    url: string;
-  };
+  image: string;
   name: string;
   bio: string;
 }
@@ -14,9 +12,9 @@ export default class AuthorBlock extends React.PureComponent<IProps> {
     const { image, name, bio } = this.props;
     return (
       <React.Fragment>
-        {image && image.url && (
+        {image && (
           <div className={s.author__image}>
-            <img alt={name} src={image.url} />
+            <img alt={name} src={image} />
           </div>
         )}
         <div className={s.author__text}>

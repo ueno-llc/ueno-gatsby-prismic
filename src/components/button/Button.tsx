@@ -7,6 +7,8 @@ interface IButtonProps {
   disabled?: boolean;
   children: React.ReactNode;
   className?: string;
+  stroke?: boolean;
+  large?: boolean;
   [key: string]: any;
 }
 
@@ -18,8 +20,8 @@ export default class Button extends React.PureComponent<IButtonProps> {
       children,
       className,
       disabled,
-      secondary,
-      block,
+      stroke,
+      large,
       ...rest // tslint:disable-line
     } = this.props;
 
@@ -29,7 +31,7 @@ export default class Button extends React.PureComponent<IButtonProps> {
     const isExternal = isLink && /^((https?:)?\/\/|[0-9a-zA-Z]+:)/.test(to || '');
 
     // Extend className of the rest
-    passProps.className = s(s.button, className, { disabled, secondary, block });
+    passProps.className = s(s.button, className, { disabled, stroke, large });
     passProps.disabled = disabled;
 
     // http, https, //, mailto, etc.

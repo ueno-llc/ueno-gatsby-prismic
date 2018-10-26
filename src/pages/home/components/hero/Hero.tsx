@@ -5,14 +5,8 @@ import { RichText } from 'prismic-reactjs';
 import Content from './Content';
 import s from './Hero.scss';
 
-interface ICarousel {
-  color: string;
-  title: IPrismicText;
-  text: IPrismicText;
-}
-
 interface IProps {
-  carousel: ICarousel[];
+  carousel: any[];
 }
 
 interface IState {

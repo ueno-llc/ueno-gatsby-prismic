@@ -1,10 +1,16 @@
 import React from 'react';
-import { graphql } from 'gatsby';
 import Button from 'components/button/Button';
+import { oc } from 'ts-optchain';
+import { GQLQuery } from 'schema';
+import { graphql } from 'gatsby';
 
 import Hero from './home/components/hero/Hero';
 import Cta from './home/components/cta/Cta';
 import Articles from './home/components/articles/Articles';
+
+interface IProps {
+  data: GQLQuery;
+}
 
 export const query = graphql`
   query Homepage {
@@ -13,17 +19,27 @@ export const query = graphql`
       prismicId
       dataString
       data {
+        meta_title { text }
+        meta_description { text }
+        articles_title { text }
+        articles_subheading { text }
         featured_articles {
           article {
             document {
               uid
-              prismicId
-              dataString
               data {
+                title { text }
+                short_description { text }
+                publication_date
                 author {
                   document {
-                    prismicId
-                    dataString
+                    data {
+                      name { text }
+                      bio { text }
+                      image {
+                        thumb { url }
+                      }
+                    }
                   }
                 }
               }
@@ -35,72 +51,48 @@ export const query = graphql`
   }
 `;
 
-interface ICarousel {
-  color: string;
-  title: IPrismicText;
-  text: IPrismicText;
-}
-
-interface IPrismicHomepage {
-  meta_title: IPrismicText;
-  meta_description: IPrismicText;
-  articles_title: IPrismicText;
-  articles_subheading: IPrismicText;
-  carousel: ICarousel[];
-}
-
-interface IProps {
-  data: {
-    prismicHomepage: {
-      dataString: string;
-    };
-  };
-}
-
 export default class Home extends React.PureComponent<IProps> {
 
-  get data(): IPrismicHomepage {
-    return JSON.parse(this.props.data.prismicHomepage.dataString);
+  get data() {
+    return oc(this.props.data.prismicHomepage!.data);
   }
 
   get title() {
-    return this.data.meta_title;
+    return this.data.meta_title.text();
   }
 
   get description() {
-    return this.data.meta_description;
+    return this.data.meta_description.text();
   }
 
-  get articlesTitle() {
-    return this.data.articles_title;
+  get articles() {
+    return {
+      title: this.data.articles_title.text(),
+      subheading: this.data.articles_subheading.text(),
+      items: this.data.featured_articles([])
+        .map((article) => oc(article).article.document[0])
+        .map((article) => ({
+          ...article(),
+          ...article.data(),
+          author: article.data.author.document[0].data(),
+        })),
+    };
   }
 
-  get articlesSubheading() {
-    return this.data.articles_subheading;
-  }
-
-  get featuredArticles() {
-    return (this.props as any).data.prismicHomepage.data.featured_articles
-      .map(({ article }: any) => article.document[0])
-      .map((article: any) => ({
-        ...article,
-      ...JSON.parse(article.dataString),
-      }))
-      .map((article: any) => ({
-        ...article,
-        author: JSON.parse(article.data.author.document[0].dataString),
-      }));
+  get carousel() {
+    const result = JSON.parse(this.props.data.prismicHomepage!.dataString!);
+    return (result && result.carousel) || [];
   }
 
   render() {
     return (
       <React.Fragment>
-        <Hero carousel={this.data.carousel} />
+        <Hero carousel={this.carousel} />
 
         <Articles
-          title={this.articlesTitle}
-          subheading={this.articlesSubheading}
-          articles={this.featuredArticles}
+          title={this.articles.title}
+          subheading={this.articles.subheading}
+          articles={this.articles.items}
           show={4}
         />
 
